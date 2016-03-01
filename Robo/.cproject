@@ -53,7 +53,7 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Static_Code/IO_Map&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Sources&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Generated_Code&quot;"/>
-									<listOptionValue builtIn="false" value="../../FS2016_Common"/>
+									<listOptionValue builtIn="false" value="../../Common"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.607296785" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
 							</tool>
@@ -123,6 +123,7 @@
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.command.ar.673923320.862414978" name="Archiver" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.command.ar.673923320"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.1460785246.635914765" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.1460785246"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.printsize.270396227.102596317" name="Print size" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.printsize.270396227"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="ilg.gnuarmeclipse.managedbuild.cross.targetPlatform" isAbstract="false" osList="all" superClass="ilg.gnuarmeclipse.managedbuild.cross.targetPlatform"/>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.282766659" name="Cross ARM GNU Assembler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.1919479400">
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input.240744873" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input"/>
 							</tool>
