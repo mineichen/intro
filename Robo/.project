@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>FS2016_Robo</name>
+	<name>Robo</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -32,15 +32,19 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>Sources/FS2016_Common</name>
+			<name>Sources/Common</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common</locationURI>
+			<locationURI>copy_PARENT1/Common</locationURI>
 		</link>
 	</linkedResources>
 	<variableList>
 		<variable>
 			<name>copy_PARENT</name>
 			<value>$%7BPARENT-2-cmsis_pack_root%7D/Users/Erich%20Styger/Data/HSLU/Vorlesung/INTRO_FS2016/git/INTRO_FS2016/Projects/Styger</value>
+		</variable>
+		<variable>
+			<name>copy_PARENT1</name>
+			<value>$%7BPARENT-2-PROJECT_LOC%7D/hslu/intro/project</value>
 		</variable>
 	</variableList>
 </projectDescription>

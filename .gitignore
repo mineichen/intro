@@ -3,6 +3,7 @@
 /*/.settings/
 /*/Documentation/
 /*/Static_Code/
+/*/Project_Settings/Linker_Files/
 *.g_c
 *.g_x
 ProjectInfo.xml
