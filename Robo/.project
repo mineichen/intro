@@ -34,7 +34,7 @@
 		<link>
 			<name>Sources/Common</name>
 			<type>2</type>
-			<locationURI>copy_PARENT1/Common</locationURI>
+			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/Common</locationURI>
 		</link>
 	</linkedResources>
 	<variableList>

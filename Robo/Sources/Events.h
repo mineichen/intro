@@ -1,6 +1,6 @@
 /* ###################################################################
 **     Filename    : Events.h
-**     Project     : FS2016_Robo
+**     Project     : Robo
 **     Processor   : MK22FX512VLQ12
 **     Component   : Events
 **     Version     : Driver 01.00
@@ -36,6 +36,8 @@
 #include "LED1.h"
 #include "LEDpin1.h"
 #include "BitIoLdd1.h"
+#include "WAIT1.h"
+#include "HF1.h"
 
 #ifdef __cplusplus
 extern "C" {

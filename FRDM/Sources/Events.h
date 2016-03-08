@@ -1,6 +1,6 @@
 /* ###################################################################
 **     Filename    : Events.h
-**     Project     : FS2016_FRDM
+**     Project     : FRDM
 **     Processor   : MKL25Z128VLK4
 **     Component   : Events
 **     Version     : Driver 01.00
