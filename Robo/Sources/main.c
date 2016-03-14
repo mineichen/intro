@@ -35,6 +35,10 @@
 #include "BitIoLdd1.h"
 #include "WAIT1.h"
 #include "HF1.h"
+#include "CS1.h"
+#include "TI1.h"
+#include "TimerIntLdd1.h"
+#include "TU1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -42,6 +46,10 @@
 #include "IO_Map.h"
 #include "Platform.h"
 /* User includes (#include below this line is not maintained by Processor Expert) */
+
+void test() {
+	LED1_Neg();
+}
 
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
 int main(void)
@@ -54,13 +62,18 @@ int main(void)
   /*** End of Processor Expert internal initialization.                    ***/
 
   /* Write your code here */
+  //Events_setHandler(PUSH_BUTTON_1_PRESSED, test);
+  //Events_fireEvent(PUSH_BUTTON_1_PRESSED);
+
+  Events_setHandler(TIMER1_OVERFLOW, test);
   for(;;) {
-	 LED1_On();
+	  Events_handle();
+	  /*LED1_On();
 	 WAIT1_Waitms(500);
 	 LED1_Off();
-	 WAIT1_Waitms(500);
-	 void (*g)(void);
-	 g();
+	 WAIT1_Waitms(500);*/
+	 //void (*g)();
+	 //g();
   }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
