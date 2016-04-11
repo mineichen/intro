@@ -34,7 +34,7 @@
 		<link>
 			<name>Sources/Common</name>
 			<type>2</type>
-			<locationURI>copy_PARENT/Common</locationURI>
+			<location>/Users/mineichen/hslu/intro/project/Common</location>
 		</link>
 	</linkedResources>
 	<variableList>

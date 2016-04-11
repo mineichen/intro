@@ -26,8 +26,10 @@
 */         
 /* MODULE Events */
 
-#include "Cpu.h"
 #include "Events.h"
+#include "Cpu.h"
+#include "EventHandler.h"
+#include "Timer.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,6 +54,93 @@ extern "C" {
 void Cpu_OnNMIINT(void)
 {
   /* Write your code here ... */
+}
+
+
+/*
+** ===================================================================
+**     Event       :  SW7_OnInterrupt (module Events)
+**
+**     Component   :  SW7 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void SW7_OnInterrupt(void)
+{
+  /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  BUTTON_GREEN_OnInterrupt (module Events)
+**
+**     Component   :  BUTTON_GREEN [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void BUTTON_GREEN_OnInterrupt(void)
+{
+	Events_fireEvent(BUTTON_GREEN_PRESSED);
+}
+
+/*
+** ===================================================================
+**     Event       :  BUTTON_YELLOW_OnInterrupt (module Events)
+**
+**     Component   :  BUTTON_YELLOW [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void BUTTON_YELLOW_OnInterrupt(void)
+{
+  /* Write your code here ... */
+	Events_fireEvent(BUTTON_YELLOW_PRESSED);
+}
+
+/*
+** ===================================================================
+**     Event       :  BUTTON_BLUE_OnInterrupt (module Events)
+**
+**     Component   :  BUTTON_BLUE [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void BUTTON_BLUE_OnInterrupt(void)
+{
+	Events_fireEvent(BUTTON_BLUE_PRESSED);
+}
+
+/*
+** ===================================================================
+**     Event       :  BUTTON_RED_OnInterrupt (module Events)
+**
+**     Component   :  BUTTON_RED [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void BUTTON_RED_OnInterrupt(void)
+{
+	Events_fireEvent(BUTTON_RED_PRESSED);
 }
 
 /* END Events */

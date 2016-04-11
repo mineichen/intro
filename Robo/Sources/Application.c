@@ -1,17 +1,14 @@
 /*
- * Platform.c
+ * Application.c
  *
  *  Created on: 28.02.2016
  *      Author: Erich Styger
  */
+#include "Application.h"
 #include "Platform.h"
 
-void PL_Deinit(void) {
-
+void APP_Start(void) {
+  PL_Init();
 }
 
-
-void PL_Init(void) {
-	//FRTOS1_Init();
-}
 

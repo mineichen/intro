@@ -9,6 +9,7 @@
 #define SOURCES_FS2016_COMMON_PLATFORM_H_
 
 #include <stdint.h> /* types as uint8_t used in project */
+#include "PlatformLocal.h"
 
 void PL_Init(void);
 void PL_Deinit(void);
