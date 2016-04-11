@@ -97,9 +97,6 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.97399793.1578088472" name="SharedEventHandler.c" rcbsApplicability="disable" resourcePath="Sources/Common/SharedEventHandler.c" toolsToInvoke="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.24458682.1682476692">
-						<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.24458682.1682476692" name="Cross ARM C Compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.24458682"/>
-					</fileInfo>
 					<fileInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.97399793..settings/com.freescale.processorexpert.core.prefs" name="com.freescale.processorexpert.core.prefs" rcbsApplicability="disable" resourcePath=".settings/com.freescale.processorexpert.core.prefs" toolsToInvoke=""/>
 					<sourceEntries>
 						<entry excluding="Sources/Common/SharedEventHandler.c|.settings/com.freescale.processorexpert.core.prefs" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
