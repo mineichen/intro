@@ -5,12 +5,16 @@
 **     Component   : Events
 **     Version     : Driver 01.00
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-02-28, 20:48, # CodeGen: 0
+**     Date/Time   : 2016-04-11, 10:51, # CodeGen: 19
 **     Abstract    :
 **         This is user's event module.
 **         Put your event handler code here.
 **     Contents    :
-**         Cpu_OnNMIINT - void Cpu_OnNMIINT(void);
+**         FRTOS1_vApplicationStackOverflowHook - void FRTOS1_vApplicationStackOverflowHook(xTaskHandle pxTask, char *pcTaskName);
+**         FRTOS1_vApplicationTickHook          - void FRTOS1_vApplicationTickHook(void);
+**         FRTOS1_vApplicationIdleHook          - void FRTOS1_vApplicationIdleHook(void);
+**         FRTOS1_vApplicationMallocFailedHook  - void FRTOS1_vApplicationMallocFailedHook(void);
+**         Cpu_OnNMIINT                         - void Cpu_OnNMIINT(void);
 **
 ** ###################################################################*/
 /*!
@@ -19,67 +23,22 @@
 ** @brief
 **         This is user's event module.
 **         Put your event handler code here.
-*/
+*/         
 /*!
 **  @addtogroup Events_module Events module documentation
 **  @{
-*/
+*/         
 /* MODULE Events */
-#include "EventHandler.h"
+
 #include "Cpu.h"
 #include "Events.h"
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif 
 
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
-
-
-
-
-
-
-/*
-** ===================================================================
-**     Event       :  Cpu_OnNMIINT (module Events)
-**
-**     Component   :  Cpu [MK22FN1M0LQ12]
-*/
-/*!
-**     @brief
-**         This event is called when the Non maskable interrupt had
-**         occurred. This event is automatically enabled when the [NMI
-**         interrupt] property is set to 'Enabled'.
-*/
-/* ===================================================================*/
-void Cpu_OnNMIINT(void)
-{
-  /* Write your code here ... */
-}
-
-
-
-/*
-** ===================================================================
-**     Event       :  TI1_OnInterrupt (module Events)
-**
-**     Component   :  TI1 [TimerInt]
-**     Description :
-**         When a timer interrupt occurs this event is called (only
-**         when the component is enabled - <Enable> and the events are
-**         enabled - <EnableEvent>). This event is enabled only if a
-**         <interrupt service/event> is enabled.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-void TI1_OnInterrupt(void)
-{
-	Events_fireEvent(TIMER1_OVERFLOW);
-  /* Write your code here ... */
-}
 
 /*
 ** ===================================================================
@@ -170,11 +129,29 @@ void FRTOS1_vApplicationMallocFailedHook(void)
   for(;;) {}
 }
 
+/*
+** ===================================================================
+**     Event       :  Cpu_OnNMIINT (module Events)
+**
+**     Component   :  Cpu [MK22FN1M0LQ12]
+*/
+/*!
+**     @brief
+**         This event is called when the Non maskable interrupt had
+**         occurred. This event is automatically enabled when the [NMI
+**         interrupt] property is set to 'Enabled'.
+*/
+/* ===================================================================*/
+void Cpu_OnNMIINT(void)
+{
+  /* Write your code here ... */
+}
+
 /* END Events */
 
 #ifdef __cplusplus
 }  /* extern "C" */
-#endif
+#endif 
 
 /*!
 ** @}
