@@ -6,19 +6,23 @@
  * This module implements the driver for all our timers.
   */
 
+#include "Platform.h"
 #if PL_CONFIG_HAS_TIMER
-
 #include "Timer.h"
-#include "Events.h"
-#include "EventHandler.h"
-
-int ctr = 0;
+#if PL_CONFIG_HAS_TRIGGER
+  #include "Trigger.h"
+#endif
 
 void TMR_OnInterrupt(void) {
-	if(TMR_TICK_MS * ++ctr >= 1000) {
-		Events_fireEvent(TIMER1_OVERFLOW);
-		ctr = 0;
-	}
+  /* this one gets called from an interrupt!!!! */
+  /*! \todo Add code for a blinking LED here */
+  static unsigned int cntr = 0;
+  #define BLINK_PERIOD_MS 2000
+  /* this one gets called from an interrupt!!!! */
+  cntr++;
+#if PL_CONFIG_HAS_TRIGGER
+  TRG_AddTick();
+#endif
 }
 
 void TMR_Init(void) {
@@ -27,4 +31,4 @@ void TMR_Init(void) {
 void TMR_Deinit(void) {
 }
 
-#endif /*PL_HAS_TIMER*/
+#endif /* PL_CONFIG_HAS_TIMER*/

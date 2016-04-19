@@ -5,11 +5,14 @@
  *      Author: mineichen
  */
 
-#ifndef PLATFORM_H_
-#define PLATFORM_H_
+#ifndef PLATFORM_LOCAL_H_
+#define PLATFORM_LOCAL_H_
+
+#define PL_CONFIG_HAS_REFLECTANCE 1
+#define PL_CONFIG_HAS_MOTOR 1
+
+void PL_local_init();
 
 
 
-
-
-#endif /* PLATFORM_H_ */
+#endif /* PLATFORM_LOCAL_H_ */

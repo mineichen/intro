@@ -6,6 +6,7 @@
  * This module implements a trigger module.
  * Triggers are special events which are triggered in a given time in the future
  */
+#include "Platform.h"
 #if PL_CONFIG_HAS_TRIGGER
 #include "Trigger.h"
 #include "CS1.h"
@@ -61,6 +62,7 @@ static bool CheckCallbacks(void) {
 
 void TRG_AddTick(void) {
   TRG_TriggerKind i;
+  uint8_t res;
   CS1_CriticalVariable()
 
   CS1_EnterCritical();
@@ -70,7 +72,9 @@ void TRG_AddTick(void) {
     }
   } /* for */
   CS1_ExitCritical();
-  while(CheckCallbacks()) {} /* while we have callbacks, re-iterate the list as this may have added new triggers at the current time */
+  do {
+    res = CheckCallbacks(); /* while there are callbacks, re-iterate */
+  } while(res);
 }
 
 void TRG_Deinit(void) {

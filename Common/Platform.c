@@ -5,13 +5,17 @@
  *      Author: Erich Styger
  */
 #include "Platform.h"
+#include "Shell.h"
 
-void PL_Deinit(void) {
+void PL_Deinit(void)
+{
 
 }
 
 
 void PL_Init(void) {
 	//FRTOS1_Init();
+	SHELL_Init();
+	PL_local_init();
 }
 

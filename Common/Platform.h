@@ -8,6 +8,12 @@
 #ifndef SOURCES_FS2016_COMMON_PLATFORM_H_
 #define SOURCES_FS2016_COMMON_PLATFORM_H_
 
+#define PL_CONFIG_HAS_TRIGGER 1
+#define PL_CONFIG_HAS_TIMER 1
+#define PL_CONFIG_HAS_BUZZER 1
+#define PL_CONFIG_HAS_SHELL 1
+#define PL_CONFIG_HAS_RTOS 1
+
 #include <stdint.h> /* types as uint8_t used in project */
 #include "PlatformLocal.h"
 

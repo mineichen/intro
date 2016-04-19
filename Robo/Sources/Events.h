@@ -40,13 +40,51 @@
 #include "LED1.h"
 #include "LEDpin1.h"
 #include "BitIoLdd1.h"
-#include "WAIT1.h"
 #include "HF1.h"
 #include "CS1.h"
 #include "BUZ1.h"
 #include "BitIoLdd2.h"
 #include "FRTOS1.h"
 #include "UTIL1.h"
+#include "KSDK1.h"
+#include "CLS1.h"
+#include "WAIT1.h"
+#include "BT1.h"
+#include "Serial1.h"
+#include "ASerialLdd1.h"
+#include "LED_IR.h"
+#include "LEDpin2.h"
+#include "BitIoLdd9.h"
+#include "RefCnt.h"
+#include "IR1.h"
+#include "BitIoLdd3.h"
+#include "IR2.h"
+#include "BitIoLdd4.h"
+#include "IR3.h"
+#include "BitIoLdd5.h"
+#include "IR4.h"
+#include "BitIoLdd6.h"
+#include "IR5.h"
+#include "BitIoLdd7.h"
+#include "IR6.h"
+#include "BitIoLdd8.h"
+#include "MOTTU.h"
+#include "DIRL.h"
+#include "BitIoLdd10.h"
+#include "PWMR.h"
+#include "PwmLdd1.h"
+#include "DIRR.h"
+#include "BitIoLdd11.h"
+#include "PWML.h"
+#include "PwmLdd2.h"
+#include "Q4CRight.h"
+#include "C11.h"
+#include "BitIoLdd12.h"
+#include "C21.h"
+#include "BitIoLdd13.h"
+#include "QuadInt.h"
+#include "TimerIntLdd1.h"
+#include "TU_QuadInt.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -126,6 +164,22 @@ void FRTOS1_vApplicationMallocFailedHook(void);
 /* ===================================================================*/
 void Cpu_OnNMIINT(void);
 
+
+/*
+** ===================================================================
+**     Event       :  QuadInt_OnInterrupt (module Events)
+**
+**     Component   :  QuadInt [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void QuadInt_OnInterrupt(void);
 
 /* END Events */
 

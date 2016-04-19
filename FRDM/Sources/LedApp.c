@@ -12,6 +12,7 @@
 #include "CLS1.h"
 
 void onButtonRed() {
+	CLS1_SendStr(".", CLS1_GetStdio()->stdOut);
 	LED_RED_SetRatio16(65000);
 }
 
@@ -25,7 +26,7 @@ void onButtonBlue() {
 
 void toggleLedRed() {
 	LED_RED_On();
-	WAIT1_Waitms(10);
+	//WAIT1_Waitms(10);
 	LED_RED_Off();
 }
 
