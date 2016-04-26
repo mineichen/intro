@@ -15,6 +15,7 @@
 #define PL_CONFIG_HAS_RTOS 1
 
 #include <stdint.h> /* types as uint8_t used in project */
+#include <stdbool.h>
 #include "PlatformLocal.h"
 
 void PL_Init(void);
