@@ -8,6 +8,8 @@
 #include "Reflectance.h"
 #include "Motor.h"
 #include "Tacho.h"
+#include "Pid.h"
+#include "Drive.h"
 
 
 void PL_local_init()
@@ -15,4 +17,6 @@ void PL_local_init()
 	REF_Init();
 	MOT_Init();
 	TACHO_Init();
+	PID_Init();
+	DRV_Init();
 }
