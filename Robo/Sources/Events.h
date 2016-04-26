@@ -85,6 +85,11 @@
 #include "QuadInt.h"
 #include "TimerIntLdd1.h"
 #include "TU_QuadInt.h"
+#include "Q4CLeft.h"
+#include "C12.h"
+#include "BitIoLdd16.h"
+#include "C22.h"
+#include "BitIoLdd17.h"
 
 #ifdef __cplusplus
 extern "C" {

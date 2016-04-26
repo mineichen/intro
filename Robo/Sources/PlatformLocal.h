@@ -10,6 +10,7 @@
 
 #define PL_CONFIG_HAS_REFLECTANCE 1
 #define PL_CONFIG_HAS_MOTOR 1
+#define PL_CONFIG_HAS_QUADRATURE 1
 
 void PL_local_init();
 

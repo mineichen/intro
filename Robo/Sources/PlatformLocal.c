@@ -6,6 +6,7 @@
  */
 #include "PlatformLocal.h"
 #include "Reflectance.h"
+#include "Motor.h"
 
 
 void PL_local_init()
