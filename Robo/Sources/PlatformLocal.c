@@ -10,6 +10,7 @@
 #include "Tacho.h"
 #include "Pid.h"
 #include "Drive.h"
+#include "LineFollow.h"
 
 
 void PL_local_init()
@@ -19,4 +20,5 @@ void PL_local_init()
 	TACHO_Init();
 	PID_Init();
 	DRV_Init();
+	LF_Init();
 }

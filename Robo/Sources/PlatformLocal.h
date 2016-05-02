@@ -14,6 +14,7 @@
 #define PL_CONFIG_HAS_MOTOR_TACHO 1
 #define PL_CONFIG_HAS_PID 1
 #define PL_CONFIG_HAS_DRIVE 1
+#define PL_CONFIG_HAS_LINE_FOLLOW 1
 
 void PL_local_init();
 
