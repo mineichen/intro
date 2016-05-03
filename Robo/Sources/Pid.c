@@ -440,14 +440,14 @@ void PID_Deinit(void) {
 }
 
 void PID_Init(void) {
-  speedLeftConfig.pFactor100 = 2000;
+  speedLeftConfig.pFactor100 = 1400;
   speedLeftConfig.iFactor100 = 40;
   speedLeftConfig.dFactor100 = 100;
   speedLeftConfig.iAntiWindup = 30000;
   speedLeftConfig.lastError = 0;
   speedLeftConfig.integral = 0;
 
-  speedRightConfig.pFactor100 = 2000;
+  speedRightConfig.pFactor100 = 1400;
   speedRightConfig.iFactor100 = 40;
   speedRightConfig.dFactor100 = 100;
   speedRightConfig.iAntiWindup = 30000;
