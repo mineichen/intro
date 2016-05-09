@@ -21,10 +21,13 @@
 #include "FRTOS1.h"
 #include "RPHY.h"
 #include "Shell.h"
-#include "Motor.h"
+#if PL_CONFIG_HAS_MOTOR
+  #include "Motor.h"
+#endif
 #if PL_CONFIG_HAS_REMOTE
   #include "Remote.h"
 #endif
+
 
 static RNWK_ShortAddrType APP_dstAddr = RNWK_ADDR_BROADCAST; /* destination node address */
 

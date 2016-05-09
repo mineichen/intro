@@ -7,6 +7,7 @@
  */
 
 #include "Platform.h"
+#include "Events.h"
 #if PL_CONFIG_HAS_MOTOR
 #include "Motor.h"
 #include "DIRR.h"
@@ -36,6 +37,18 @@ static uint8_t PWMRSetRatio16(uint16_t ratio) {
 static void DirLPutVal(bool val) {
   /*! \todo Check if directions are working properly with your hardware */
   DIRL_PutVal(!val);
+}
+
+static void enablePullupsRoboV2()
+{
+	PORT_PDD_SetPinPullSelect(PORTC_BASE_PTR, 10, PORT_PDD_PULL_UP);
+	PORT_PDD_SetPinPullEnable(PORTC_BASE_PTR, 10, PORT_PDD_PULL_ENABLE);
+	PORT_PDD_SetPinPullSelect(PORTC_BASE_PTR, 11, PORT_PDD_PULL_UP);
+	PORT_PDD_SetPinPullEnable(PORTC_BASE_PTR, 11, PORT_PDD_PULL_ENABLE);
+	PORT_PDD_SetPinPullSelect(PORTC_BASE_PTR, 16, PORT_PDD_PULL_UP);
+	PORT_PDD_SetPinPullEnable(PORTC_BASE_PTR, 16, PORT_PDD_PULL_ENABLE);
+	PORT_PDD_SetPinPullSelect(PORTC_BASE_PTR, 17, PORT_PDD_PULL_UP);
+	PORT_PDD_SetPinPullEnable(PORTC_BASE_PTR, 17, PORT_PDD_PULL_ENABLE);
 }
 
 static void DirRPutVal(bool val) {
@@ -202,5 +215,7 @@ void MOT_Init(void) {
   MOT_SetSpeedPercent(&motorR, 0);
   PWML_Enable();
   PWMR_Enable();
+
+  enablePullupsRoboV2();
 }
 #endif /* PL_CONFIG_HAS_MOTOR */

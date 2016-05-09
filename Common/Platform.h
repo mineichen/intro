@@ -12,7 +12,7 @@
 #define PL_CONFIG_HAS_TIMER 1
 #define PL_CONFIG_HAS_SHELL 1
 #define PL_CONFIG_HAS_RTOS 1
-#define PL_CONFIG_HAS_RADIO 0
+#define PL_CONFIG_HAS_RADIO 1
 
 #include <stdint.h> /* types as uint8_t used in project */
 #include <stdbool.h>

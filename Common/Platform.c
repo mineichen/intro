@@ -19,5 +19,6 @@ void PL_Init(void) {
 	SHELL_Init();
 	PL_local_init();
 	RNET1_Init();
+	RADIO_Init();
 }
 

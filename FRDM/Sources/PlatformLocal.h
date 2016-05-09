@@ -5,8 +5,9 @@
  *      Author: mineichen
  */
 
-#ifndef PLATFORM_H_
-#define PLATFORM_H_
+#ifndef PLATFORM_LOCAL_H_
+#define PLATFORM_LOCAL_H_
 
+void PL_local_init();
 
-#endif /* PLATFORM_H_ */
+#endif /* PLATFORM_LOCAL_H_ */

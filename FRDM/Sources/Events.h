@@ -56,8 +56,6 @@
 #include "AdcLdd1.h"
 #include "LEDPin2.h"
 #include "BitIoLdd9.h"
-#include "LEDPin3.h"
-#include "BitIoLdd10.h"
 #include "WAIT1.h"
 #include "HF1.h"
 #include "LED_RED.h"
@@ -69,6 +67,14 @@
 #include "AS1.h"
 #include "ASerialLdd1.h"
 #include "FRTOS1.h"
+#include "RNET1.h"
+#include "RF1.h"
+#include "CE1.h"
+#include "BitIoLdd8.h"
+#include "CSN1.h"
+#include "BitIoLdd12.h"
+#include "SM1.h"
+#include "SMasterLdd1.h"
 
 
 #ifdef __cplusplus

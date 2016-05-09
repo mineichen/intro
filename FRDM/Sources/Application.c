@@ -8,7 +8,7 @@
 #include "Application.h"
 #include "Platform.h"
 
-void APP_Start(void) {
+void ApplicationInit(void) {
   PL_Init();
 }
 

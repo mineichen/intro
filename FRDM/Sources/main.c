@@ -52,8 +52,6 @@
 #include "AdcLdd1.h"
 #include "LEDPin2.h"
 #include "BitIoLdd9.h"
-#include "LEDPin3.h"
-#include "BitIoLdd10.h"
 #include "WAIT1.h"
 #include "HF1.h"
 #include "LED_RED.h"
@@ -65,6 +63,14 @@
 #include "AS1.h"
 #include "ASerialLdd1.h"
 #include "FRTOS1.h"
+#include "RNET1.h"
+#include "RF1.h"
+#include "CE1.h"
+#include "BitIoLdd8.h"
+#include "CSN1.h"
+#include "BitIoLdd12.h"
+#include "SM1.h"
+#include "SMasterLdd1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -72,7 +78,6 @@
 #include "IO_Map.h"
 /* User includes (#include below this line is not maintained by Processor Expert) */
 #include "Application.h"
-#include "RTOS.h"
 
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
 int main(void)
@@ -86,8 +91,7 @@ int main(void)
 
   /* Write your code here */
   //LedApp_Start();
-  RTOS_Init();
-  RTOS_Run();
+  ApplicationInit();
   /* For example: for(;;) { } */
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
