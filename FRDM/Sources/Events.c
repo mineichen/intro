@@ -30,10 +30,15 @@
 #include "Cpu.h"
 #include "EventHandler.h"
 #include "Timer.h"
+#include "Remote.h"
+#include "RNet_App.h"
+#include "RNet_AppConfig.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif 
+
+uint8_t data;
 
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
@@ -107,6 +112,9 @@ void BUTTON_YELLOW_OnInterrupt(void)
 {
   /* Write your code here ... */
 	Events_fireEvent(BUTTON_YELLOW_PRESSED);
+
+	data = 'G';
+	(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
 }
 
 /*
