@@ -9,20 +9,15 @@
 #include "RNet_App.h"
 #include "Radio.h"
 #include "AS1.h"
+#include "Remote.h"
 
-void PL_Deinit(void)
-{
-
-}
+void PL_Deinit(void){}
 
 
 void PL_Init(void) {
-	//FRTOS1_Init();
 	SHELL_Init();
 	PL_local_init();
 	RNETA_Init();
-
-
-	//RADIO_SetChannel(4);
+	REMOTE_Init();
 }
 

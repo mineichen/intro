@@ -11,6 +11,7 @@
 #include "Pid.h"
 #include "Drive.h"
 #include "LineFollow.h"
+#include "Turn.h"
 
 
 void PL_local_init()
@@ -21,4 +22,5 @@ void PL_local_init()
 	PID_Init();
 	DRV_Init();
 	LF_Init();
+	TURN_Init();
 }
