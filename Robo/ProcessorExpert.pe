@@ -3,7 +3,7 @@
   <Header>
     <Name>Robo</Name>
     <SavedBy>Erich Styger</SavedBy>
-    <ModificationStamp>40</ModificationStamp>
+    <ModificationStamp>41</ModificationStamp>
     <Date>2016-02-28</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.0.RT7_b1515-0427</PEversion>
@@ -50023,7 +50023,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Value>42</Value>
+        <Value>4</Value>
         <Base>DEC</Base>
       </ItemState>
       <ItemState>

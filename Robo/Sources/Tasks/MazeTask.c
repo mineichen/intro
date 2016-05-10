@@ -1,4 +1,4 @@
-#include "Tasks/ScanlineTask.h"
+#include <Tasks/MazeTask.h>
 #include "FreeRTOS.h"
 #include "FRTOS1.h"
 
