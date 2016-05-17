@@ -70,7 +70,7 @@
   #include "Remote.h"
 #endif
 #if PL_CONFIG_HAS_LINE_MAZE
-  #include "Maze.h"
+  #include "Tasks/MazeTask.h"
 #endif
 
 /* forward declaration */

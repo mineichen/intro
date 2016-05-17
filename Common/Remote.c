@@ -129,7 +129,8 @@ static void RemoteTask (void *pvParameters) {
           SHELL_SendString(txtBuf);
         }
         (void)RAPP_SendPayloadDataBlock(buf, sizeof(buf), RAPP_MSG_TYPE_JOYSTICK_XY, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
-        LED1_Neg();
+
+        //LED1_Neg();
       }
 #endif
       FRTOS1_vTaskDelay(200/portTICK_PERIOD_MS);
@@ -142,67 +143,14 @@ static void RemoteTask (void *pvParameters) {
 
 #if PL_CONFIG_HAS_MOTOR
 static void REMOTE_HandleMotorMsg(int16_t speedVal, int16_t directionVal, int16_t z) {
-  #define SCALE_DOWN 30
-  #define MIN_VALUE  250 /* values below this value are ignored */
-  #define DRIVE_DOWN 1
-
   if (!REMOTE_isOn) {
     return;
   }
-  if (z<-900) { /* have a way to stop motor: turn FRDM USB port side up or down */
-#if PL_CONFIG_HAS_DRIVE
-    DRV_SetSpeed(0, 0);
-#else
-    MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_LEFT), 0);
-    MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_RIGHT), 0);
-#endif
-  } else if ((directionVal>MIN_VALUE || directionVal<-MIN_VALUE) && (speedVal>MIN_VALUE || speedVal<-MIN_VALUE)) {
-    int16_t speed, speedL, speedR;
-    
-    speed = speedVal/SCALE_DOWN;
-    if (directionVal<0) {
-      if (speed<0) {
-        speedR = speed+(directionVal/SCALE_DOWN);
-      } else {
-        speedR = speed-(directionVal/SCALE_DOWN);
-      }
-      speedL = speed;
-    } else {
-      speedR = speed;
-      if (speed<0) {
-        speedL = speed-(directionVal/SCALE_DOWN);
-      } else {
-        speedL = speed+(directionVal/SCALE_DOWN);
-      }
-    }
-#if PL_CONFIG_HAS_DRIVE
-    DRV_SetSpeed(speedL*SCALE_DOWN/DRIVE_DOWN, speedR*SCALE_DOWN/DRIVE_DOWN);
-#else
-    MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_LEFT), speedL);
-    MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_RIGHT), speedR);
-#endif
-  } else if (speedVal>100 || speedVal<-100) { /* speed */
-#if PL_CONFIG_HAS_DRIVE
-    DRV_SetSpeed(speedVal, speedVal);
-#else
-    MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_LEFT), -speedVal/SCALE_DOWN);
-    MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_RIGHT), -speedVal/SCALE_DOWN);
-#endif
-  } else if (directionVal>100 || directionVal<-100) { /* direction */
-#if PL_CONFIG_HAS_DRIVE
-    DRV_SetSpeed(directionVal/DRIVE_DOWN, -directionVal/DRIVE_DOWN);
-#else
-    MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_LEFT), -directionVal/SCALE_DOWN);
-    MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_RIGHT), (directionVAl/SCALE_DOWN));
-#endif
-  } else { /* device flat on the table? */
-#if PL_CONFIG_HAS_DRIVE
-    DRV_SetSpeed(0, 0);
-#else
-    MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_LEFT), 0);
-    MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_RIGHT), 0);
-#endif
-  }
+
+  int32_t speedL = 4 * speedVal + 2 * ((speedVal > -100 ) ? directionVal : (-1 * directionVal)),
+		  speedR = 4 * speedVal - 2 * ((speedVal > -100) ? directionVal : (-1 * directionVal));
+
+  DRV_SetSpeed(speedL, speedR);
 }
 #endif
 

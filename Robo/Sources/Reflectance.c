@@ -60,6 +60,32 @@ typedef struct SensorFctType_ {
 typedef uint16_t SensorTimeType;
 #define MAX_SENSOR_VALUE  ((SensorTimeType)-1)
 
+
+static QueueHandle_t* lineKindChangeCallback = 0; //
+void REF_SubscribeLineKindChange(QueueHandle_t* callback)
+{
+	if(lineKindChangeCallback) {
+		for(;;) {} // Only one callback could be set
+	}
+	lineKindChangeCallback = callback;
+}
+void REF_UnsubscribeLineKindChange(QueueHandle_t* callback)
+{
+	if(lineKindChangeCallback != callback) {
+		for(;;) {} // Cannot remove lineKind because none is set
+	}
+	lineKindChangeCallback = 0;
+}
+
+void REF_FireLineKindChange(REF_LineKind kind)
+{
+
+	if(lineKindChangeCallback) {
+		FRTOS1_xQueueSendToBack(lineKindChangeCallback, &kind, 0);
+	}
+}
+
+
 /* calibration min/max values */
 typedef struct SensorCalibT_ {
   SensorTimeType minVal[REF_NOF_SENSORS];
@@ -341,6 +367,7 @@ static void REF_Measure(void) {
   refCenterLineVal = ReadLine(SensorCalibrated, SensorRaw, REF_USE_WHITE_LINE);
 #if PL_CONFIG_HAS_LINE_FOLLOW
   refLineKind = ReadLineKind(SensorCalibrated);
+  REF_FireLineKindChange(refLineKind);
 #endif
 }
 

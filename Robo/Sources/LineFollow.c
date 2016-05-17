@@ -25,9 +25,6 @@
 #if PL_CONFIG_HAS_DRIVE
   #include "Drive.h"
 #endif
-#if PL_CONFIG_HAS_LINE_MAZE
-  #include "Maze.h"
-#endif
 
 #define LINE_DEBUG      1   /* careful: this will slow down the PID loop frequency! */
 

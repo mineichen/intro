@@ -7,11 +7,12 @@
 #include "Application.h"
 #include "Platform.h"
 #include "Tasks/LedTask.h"
+#include "Tasks/MazeTask.h"
 #include "FreeRTOS.h"
 #include "Buzzer.h"
 #include "CLS1.h"
 
-static void runTask(void* param)
+void ApplicationRunTaskFn(void* param)
 {
 	IntroTask_t* that = (IntroTask_t*) param;
 	that->run(that);
@@ -23,14 +24,12 @@ void ApplicationInit(void) {
   static LedTask_t ledTask;
   ledTask = LedTaskCreate();
 
+    //static ScanlineTask_t scanlineTask = ScanlineTaskCreate();
 
-
-  //static ScanlineTask_t scanlineTask = ScanlineTaskCreate();
-
-  IntroTask_t* task = &ledTask;
+  IntroTask_t* ledRawtask = &ledTask;
   BUZ_Tunes tune = BUZ_TUNE_WELCOME;
   BUZ_PlayTune(tune);
-  xTaskCreate(runTask, "LedTask", configMINIMAL_STACK_SIZE, task, tskIDLE_PRIORITY, task->taskHandle);
+  xTaskCreate(ApplicationRunTaskFn, "LedTask", configMINIMAL_STACK_SIZE, ledRawtask, tskIDLE_PRIORITY, ledRawtask->taskHandle);
 }
 
 

@@ -10,6 +10,7 @@
 #define REFLECTANCE_H_
 
 #include "Platform.h"
+#include "FRTOS1.h"
 #if PL_CONFIG_HAS_REFLECTANCE
 
 #define REF_NOF_SENSORS 6
@@ -26,6 +27,10 @@ typedef enum {
 } REF_LineKind;
 
 REF_LineKind REF_GetLineKind(void);
+
+void REF_SubscribeLineKindChange(QueueHandle_t*);
+void REF_UnsubscribeLineKindChange(QueueHandle_t*);
+
 
 void REF_GetSensorValues(uint16_t *values, int nofValues);
 

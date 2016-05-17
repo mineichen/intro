@@ -1,14 +1,20 @@
-#ifndef SCANLINE_TASK_H_
-#define SCANLINE_TASK_H_
+#ifndef MAZE_TASK_H_
+#define MAZE_TASK_H_
 
 #include "Tasks/Task.h"
+#include "FRTOS1.h"
+#include "CLS1.h"
+#include "Application.h"
+#include "LineFollow.h"
+#include "Reflectance.h"
+#include "Turn.h"
 
 typedef struct {
 	IntroTask_t type;
-	int myValue;
-} ScanlineTask_t;
+	QueueHandle_t lineKindChange;
+} MazeTask_t;
 
-ScanlineTask_t ScanlineTaskCreate();
-
+MazeTask_t MazeTaskCreate();
+uint8_t MAZE_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_StdIOType *io);
 
 #endif

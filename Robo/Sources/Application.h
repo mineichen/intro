@@ -8,6 +8,7 @@
 #ifndef SOURCES_FS2016_COMMON_APPLICATION_H_
 #define SOURCES_FS2016_COMMON_APPLICATION_H_
 
+void ApplicationRunTaskFn(void* param);
 void ApplicationInit(void);
 
 #endif /* SOURCES_FS2016_COMMON_APPLICATION_H_ */
