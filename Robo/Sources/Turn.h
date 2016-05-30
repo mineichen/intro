@@ -29,7 +29,8 @@ typedef enum {
   TURN_FINISHED, /* stepped into finish! */
   TURN_STOP_LEFT,   /* stop left motor */
   TURN_STOP_RIGHT,  /* stop right motor */
-  TURN_STOP     /* stop */
+  TURN_STOP,     /* stop */
+  TURN_HALF_STEP_LINE_FW
 } TURN_Kind;
 
 /*! \brief Callback type function to stop process or turning */

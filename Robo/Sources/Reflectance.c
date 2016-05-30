@@ -61,15 +61,15 @@ typedef uint16_t SensorTimeType;
 #define MAX_SENSOR_VALUE  ((SensorTimeType)-1)
 
 
-static QueueHandle_t* lineKindChangeCallback = 0; //
-void REF_SubscribeLineKindChange(QueueHandle_t* callback)
+static QueueHandle_t lineKindChangeCallback = 0;
+void REF_SubscribeLineKindChange(QueueHandle_t callback)
 {
 	if(lineKindChangeCallback) {
 		for(;;) {} // Only one callback could be set
 	}
 	lineKindChangeCallback = callback;
 }
-void REF_UnsubscribeLineKindChange(QueueHandle_t* callback)
+void REF_UnsubscribeLineKindChange(QueueHandle_t callback)
 {
 	if(lineKindChangeCallback != callback) {
 		for(;;) {} // Cannot remove lineKind because none is set
@@ -79,7 +79,6 @@ void REF_UnsubscribeLineKindChange(QueueHandle_t* callback)
 
 void REF_FireLineKindChange(REF_LineKind kind)
 {
-
 	if(lineKindChangeCallback) {
 		FRTOS1_xQueueSendToBack(lineKindChangeCallback, &kind, 0);
 	}
@@ -333,17 +332,9 @@ static REF_LineKind ReadLineKind(SensorTimeType val[REF_NOF_SENSORS]) {
   #define MIN_LEFT_RIGHT_SUM   ((REF_NOF_SENSORS*1000)/4) /* 1/4 of full sensor values */
 
   if (outerLeft>=REF_MIN_LINE_VAL && outerRight<REF_MIN_LINE_VAL && sumLeft>MIN_LEFT_RIGHT_SUM && sumRight<MIN_LEFT_RIGHT_SUM) {
-#if PL_APP_LINE_MAZE
     return REF_LINE_LEFT; /* line going to the left side */
-#else
-    return REF_LINE_STRAIGHT;
-#endif
   } else if (outerLeft<REF_MIN_LINE_VAL && outerRight>=REF_MIN_LINE_VAL && sumRight>MIN_LEFT_RIGHT_SUM && sumLeft<MIN_LEFT_RIGHT_SUM) {
-#if PL_APP_LINE_MAZE
     return REF_LINE_RIGHT; /* line going to the right side */
-#else
-    return REF_LINE_STRAIGHT;
-#endif
   } else if (outerLeft>=REF_MIN_LINE_VAL && outerRight>=REF_MIN_LINE_VAL && sumRight>MIN_LEFT_RIGHT_SUM && sumLeft>MIN_LEFT_RIGHT_SUM) {
     return REF_LINE_FULL; /* full line */
   } else if (sumRight==0 && sumLeft==0 && sum == 0) {
@@ -366,8 +357,11 @@ static void REF_Measure(void) {
   ReadCalibrated(SensorCalibrated, SensorRaw);
   refCenterLineVal = ReadLine(SensorCalibrated, SensorRaw, REF_USE_WHITE_LINE);
 #if PL_CONFIG_HAS_LINE_FOLLOW
+  REF_LineKind prev = refLineKind;
   refLineKind = ReadLineKind(SensorCalibrated);
-  REF_FireLineKindChange(refLineKind);
+  if(refLineKind != prev && refLineKind != REF_LINE_UNDEF) {
+	  REF_FireLineKindChange(refLineKind);
+  }
 #endif
 }
 
@@ -564,13 +558,13 @@ static void REF_StateMachine(void) {
       break;
 
     case REF_STATE_READY:
-      REF_Measure();
-#if REF_START_STOP_CALIB
-      if (FRTOS1_xSemaphoreTake(REF_StartStopSem, 0)==pdTRUE) {
-        refState = REF_STATE_START_CALIBRATION;
-      }
-#endif
-      break;
+    	REF_Measure();
+    	#if REF_START_STOP_CALIB
+    	      if (FRTOS1_xSemaphoreTake(REF_StartStopSem, 0)==pdTRUE) {
+    	        refState = REF_STATE_START_CALIBRATION;
+    	      }
+    	#endif
+    	      break;
   } /* switch */
 }
 
@@ -599,6 +593,7 @@ void REF_Init(void) {
   FRTOS1_vQueueAddToRegistry(REF_StartStopSem, "RefStartStopSem");
 #endif
   refState = REF_STATE_INIT;
+  refLineKind = REF_LINE_UNDEF;
   timerHandle = RefCnt_Init(NULL);
   /*! \todo You might need to adjust priority or other task settings */
   if (FRTOS1_xTaskCreate(ReflTask, "Refl", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL) != pdPASS) {

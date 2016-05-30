@@ -23,13 +23,14 @@ typedef enum {
   REF_LINE_LEFT=2,     /* left half of sensors see line */
   REF_LINE_RIGHT=3,    /* right half of sensors see line */
   REF_LINE_FULL=4,     /* all sensors see a line */
+  REF_LINE_UNDEF=5,
   REF_NOF_LINES        /* Sentinel */
 } REF_LineKind;
 
 REF_LineKind REF_GetLineKind(void);
 
-void REF_SubscribeLineKindChange(QueueHandle_t*);
-void REF_UnsubscribeLineKindChange(QueueHandle_t*);
+void REF_SubscribeLineKindChange(QueueHandle_t);
+void REF_UnsubscribeLineKindChange(QueueHandle_t);
 
 
 void REF_GetSensorValues(uint16_t *values, int nofValues);

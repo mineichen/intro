@@ -147,7 +147,7 @@ static void REMOTE_HandleMotorMsg(int16_t speedVal, int16_t directionVal, int16_
     return;
   }
 
-  int32_t speedL = 4 * speedVal + 2 * ((speedVal > -100 ) ? directionVal : (-1 * directionVal)),
+  int32_t speedL = 4 * speedVal + 2 * ((speedVal > -100) ? directionVal : (-1 * directionVal)),
 		  speedR = 4 * speedVal - 2 * ((speedVal > -100) ? directionVal : (-1 * directionVal));
 
   DRV_SetSpeed(speedL, speedR);

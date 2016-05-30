@@ -15,6 +15,7 @@
 void ApplicationRunTaskFn(void* param)
 {
 	IntroTask_t* that = (IntroTask_t*) param;
+	//that->init(that);
 	that->run(that);
 	that->deinit(that);
 }
@@ -23,8 +24,6 @@ void ApplicationInit(void) {
   PL_Init();
   static LedTask_t ledTask;
   ledTask = LedTaskCreate();
-
-    //static ScanlineTask_t scanlineTask = ScanlineTaskCreate();
 
   IntroTask_t* ledRawtask = &ledTask;
   BUZ_Tunes tune = BUZ_TUNE_WELCOME;

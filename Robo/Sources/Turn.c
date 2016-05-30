@@ -34,6 +34,7 @@
 #define TURN_STEPS_LINE_TIMEOUT_MS      200
 #define TURN_STEPS_POST_LINE_TIMEOUT_MS 200
 #define TURN_STEPS_STOP_TIMEOUT_MS      150
+#define TURN_HALF_STEP_LINE_FW  80
 
 static int32_t TURN_Steps90 = TURN_STEPS_90;
 static int32_t TURN_StepsLine = TURN_STEPS_LINE;
@@ -168,6 +169,9 @@ void TURN_Turn(TURN_Kind kind, TURN_StopFct stopIt) {
       MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_LEFT), 0);
       MOT_SetSpeedPercent(MOT_GetMotorHandle(MOT_MOTOR_RIGHT), 0);
       break;
+    case TURN_HALF_STEP_LINE_FW:
+    	StepsTurn(TURN_HALF_STEP_LINE_FW, TURN_HALF_STEP_LINE_FW, stopIt, TURN_STEPS_POST_LINE_TIMEOUT_MS);
+        break;
   default:
     break;
   }
@@ -180,7 +184,7 @@ void TURN_TurnAngle(int16_t angle, TURN_StopFct stopIt) {
   if (isLeft) {
     angle = -angle; /* make it positive */
   }
-  angle %= 360; /* keep it inside 360° */
+  angle %= 360; /* keep it inside 360ï¿½ */
   steps = (angle*TURN_Steps90)/90;
   if (isLeft) {
     StepsTurn(-steps, steps, stopIt, ((angle/90)+1)*TURN_STEPS_90_TIMEOUT_MS);
@@ -208,7 +212,7 @@ static void TURN_PrintStatus(const CLS1_StdIOType *io) {
   CLS1_SendStatusStr((unsigned char*)"turn", (unsigned char*)"\r\n", io->stdOut);
   UTIL1_Num32sToStr(buf, sizeof(buf), TURN_Steps90);
   UTIL1_strcat(buf, sizeof(buf), (unsigned char*)" steps\r\n");
-  CLS1_SendStatusStr((unsigned char*)"  90°", buf, io->stdOut);
+  CLS1_SendStatusStr((unsigned char*)"  90ï¿½", buf, io->stdOut);
 
   UTIL1_Num32sToStr(buf, sizeof(buf), TURN_StepsLine);
   UTIL1_strcat(buf, sizeof(buf), (unsigned char*)" steps\r\n");

@@ -1,4 +1,5 @@
 #include "Tasks/MazeTask.h"
+#include "Tasks/LedTask.h"
 
 
 
@@ -29,48 +30,59 @@ _Bool findPath(MazeTask_t* that) {
    REF_LineKind lineKind;
    REF_LineKind stepLineKind;
    int pos = BACK;
+   int foundSolution = 0;
 
+   REF_SubscribeLineKindChange(that->lineKindChange);
    LF_StartFollowing();
-   FRTOS1_xQueueReceive(&(that->lineKindChange), (void*) &lineKind, 0);
+   FRTOS1_xQueueReceive(that->lineKindChange, (void*) &lineKind, portMAX_DELAY);
    LF_StopFollowing();
+   REF_UnsubscribeLineKindChange(that->lineKindChange);
 
-   TURN_Turn(TURN_STEP_LINE_FW, 0);
-   if(REF_GetLineKind() == REF_LINE_FULL) {
-	   //Finished
-	   return true;
+   if (lineKind != REF_LINE_NONE) {
+	   TURN_Turn(TURN_STEP_LINE_FW_POST_LINE, 0);
+	   stepLineKind = REF_GetLineKind();
+
+	   if(stepLineKind == REF_LINE_FULL) {
+		   //Finished
+		   foundSolution = 1;
+	   }
+
+	   if (!foundSolution && stepLineKind == REF_LINE_STRAIGHT) {
+		   turn((4+FORWARD - pos ) % 4);
+		   if(findPath(that)) foundSolution = 1;
+		   pos = FORWARD;
+	   }
+	   if (!foundSolution && lineKind == REF_LINE_RIGHT || lineKind == REF_LINE_FULL) {
+		   TURN_Turn(TURN_HALF_STEP_LINE_FW, 0);
+		   turn((4+RIGHT - pos ) % 4);
+		   if(findPath(that)) foundSolution = 1;
+		   pos = RIGHT;
+	   }
+	   if(!foundSolution && lineKind == REF_LINE_LEFT || lineKind == REF_LINE_FULL) {
+		   TURN_Turn(TURN_HALF_STEP_LINE_FW, 0);
+		   turn((4+LEFT - pos ) % 4);
+		   if(findPath(that)) foundSolution = 1;
+		   pos = LEFT;
+	   }
    }
 
-   FRTOS1_xQueueReceive(&(that->lineKindChange), (void*) &stepLineKind, 0);
-   if (stepLineKind == REF_LINE_STRAIGHT) {
-	   turn((4+FORWARD - pos ) % 4);
-	   if(findPath(that)) return true;
-	   pos = FORWARD;
-   }
-   if (lineKind == REF_LINE_RIGHT || lineKind == REF_LINE_FULL) {
-	   turn((4+RIGHT - pos ) % 4);
-	   if(findPath(that)) return true;
-	   pos = RIGHT;
-   }
-   if(lineKind == REF_LINE_LEFT || lineKind == REF_LINE_FULL) {
-	   turn((4+LEFT - pos ) % 4);
-	   if(findPath(that)) return true;
-	   pos = LEFT;
-   }
-
-   turn(4 - pos);
+   turn((4 - pos) % 4);
+   REF_SubscribeLineKindChange(that->lineKindChange);
    LF_StartFollowing();
-   FRTOS1_xQueueReceive(&(that->lineKindChange), (void*) &lineKind, 0);
+   FRTOS1_xQueueReceive(that->lineKindChange, (void*) &lineKind, portMAX_DELAY);
    LF_StopFollowing();
-   TURN_Turn(TURN_STEP_LINE_FW, 0);
+   REF_UnsubscribeLineKindChange(that->lineKindChange);
+
+   TURN_Turn(TURN_STEP_LINE_FW_POST_LINE, 0);
+
    return false;
 }
 
 
 static void MazeTaskRun(void* pvParameters) {
 	MazeTask_t* that = pvParameters;
-	REF_SubscribeLineKindChange(&(that->lineKindChange));
 
-	// Both direction
+		// Both direction
 	if(findPath(that) || findPath(that)) {
 	    //Biep("finishSong");
 	}
@@ -83,7 +95,7 @@ static void MazeTaskRun(void* pvParameters) {
 }
 
 
-static void MazeTaskInit()
+static void MazeTaskInit(void * params)
 {
 
 }
@@ -94,10 +106,10 @@ static void MazeTaskDeinit()
 
 MazeTask_t MazeTaskCreate()
 {
-	MazeTask_t task = {
-		{MazeTaskInit,MazeTaskRun,MazeTaskDeinit}
+	return (MazeTask_t) {
+		{MazeTaskInit,MazeTaskRun,MazeTaskDeinit},
+		FRTOS1_xQueueCreate(1000, sizeof(REF_LineKind))
 	};
-	//task.lineKindChange = FRTOS1_xQueueCreate(3, sizeof(REF_LineKind));
 }
 
 static void MAZE_PrintStatus(const CLS1_StdIOType *io) {
@@ -133,7 +145,8 @@ uint8_t MAZE_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_St
     //MAZE_ClearSolution();
 	static MazeTask_t mazeTask;
 	mazeTask = MazeTaskCreate();
-	IntroTask_t* mazeRawTask = (IntroTask_t*)&mazeTask;
+	IntroTask_t* mazeRawTask = (IntroTask_t*) &mazeTask;
+
 	xTaskCreate(ApplicationRunTaskFn, "MazeTask", configMINIMAL_STACK_SIZE, mazeRawTask, tskIDLE_PRIORITY, mazeRawTask->taskHandle);
 
     *handled = TRUE;
