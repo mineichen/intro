@@ -33,6 +33,7 @@
 #include "Remote.h"
 #include "RNet_App.h"
 #include "RNet_AppConfig.h"
+#include "Trigger.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -113,7 +114,7 @@ void BUTTON_YELLOW_OnInterrupt(void)
   /* Write your code here ... */
 	Events_fireEvent(BUTTON_YELLOW_PRESSED);
 
-	data = 'G';
+	data = 'Y';
 	(void)RAPP_SendPayloadDataBlock(&data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_BTN, RNETA_GetDestAddr(), RPHY_PACKET_FLAGS_REQ_ACK);
 }
 
@@ -129,10 +130,22 @@ void BUTTON_YELLOW_OnInterrupt(void)
 **     Returns     : Nothing
 ** ===================================================================
 */
+void blueButtonCallback() {
+	data = 'B';
+	(void)RAPP_SendPayloadDataBlock(
+		&data,
+		sizeof(data),
+		RAPP_MSG_TYPE_JOYSTICK_BTN,
+		RNETA_GetDestAddr(),
+		RPHY_PACKET_FLAGS_REQ_ACK
+	);
+}
 void BUTTON_BLUE_OnInterrupt(void)
 {
 	Events_fireEvent(BUTTON_BLUE_PRESSED);
+	TRG_SetTrigger(TRG_BLUE_BUTTON_PRESSED, 100, blueButtonCallback, 0);
 }
+
 
 /*
 ** ===================================================================
@@ -149,6 +162,7 @@ void BUTTON_BLUE_OnInterrupt(void)
 void BUTTON_RED_OnInterrupt(void)
 {
 	Events_fireEvent(BUTTON_RED_PRESSED);
+
 	//KEY_OnInterrupt(BUTTON_RED_PRESSED);
 }
 
@@ -213,6 +227,7 @@ void FRTOS1_vApplicationStackOverflowHook(xTaskHandle pxTask, char *pcTaskName)
 */
 void FRTOS1_vApplicationTickHook(void)
 {
+	TRG_AddTick();
   /* Called for every RTOS tick. */
   /* Write your code here ... */
 }
