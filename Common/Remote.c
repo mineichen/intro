@@ -35,7 +35,9 @@
 #if PL_CONFIG_HAS_SHELL
   #include "Shell.h"
 #endif
-#include "Tasks/MazeTask.h"
+#if PL_CONFIG_HAS_LINE_MAZE
+	#include "Tasks/MazeTask.h"
+#endif
 
 static bool REMOTE_isOn = FALSE;
 static bool REMOTE_isVerbose = FALSE;
