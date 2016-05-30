@@ -18,4 +18,6 @@ typedef struct {
 MazeTask_t MazeTaskCreate();
 uint8_t MAZE_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_StdIOType *io);
 
+void startMaze();
+
 #endif

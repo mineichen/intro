@@ -35,6 +35,7 @@
 #if PL_CONFIG_HAS_SHELL
   #include "Shell.h"
 #endif
+#include "Tasks/MazeTask.h"
 
 static bool REMOTE_isOn = FALSE;
 static bool REMOTE_isVerbose = FALSE;
@@ -232,13 +233,13 @@ uint8_t REMOTE_HandleRemoteRxMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *
         REMOTE_SetOnOff(FALSE);
         DRV_SetSpeed(0,0); /* turn off motors */
         SHELL_SendString("Remote OFF\r\n");
-      } else if (val=='G') { /* center joystick button: enable remote */
+      } else if (val=='Y') { /* yellow button: enable remote */
         SHELL_ParseCmd((unsigned char*)"buzzer buz 300 1000");
         REMOTE_SetOnOff(TRUE);
         DRV_SetMode(DRV_MODE_SPEED);
         SHELL_SendString("Remote ON\r\n");
-      } else if (val=='C') { /* red 'C' button */
-        /*! \todo add functionality */
+      } else if (val=='B') { /* blue 'C' button */
+        startMaze();
       } else if (val=='A') { /* green 'A' button */
         /*! \todo add functionality */
       }

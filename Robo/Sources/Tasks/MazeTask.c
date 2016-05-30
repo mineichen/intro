@@ -143,15 +143,21 @@ uint8_t MAZE_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_St
     *handled = TRUE;
   } else if (UTIL1_strcmp((char*)cmd, (char*)"maze start")==0) {
     //MAZE_ClearSolution();
-	static MazeTask_t mazeTask;
-	mazeTask = MazeTaskCreate();
-	IntroTask_t* mazeRawTask = (IntroTask_t*) &mazeTask;
 
-	xTaskCreate(ApplicationRunTaskFn, "MazeTask", configMINIMAL_STACK_SIZE, mazeRawTask, tskIDLE_PRIORITY, mazeRawTask->taskHandle);
+	  startMaze();
 
     *handled = TRUE;
   }
   return res;
+}
+
+void startMaze(){
+	static MazeTask_t mazeTask;
+		mazeTask = MazeTaskCreate();
+		IntroTask_t* mazeRawTask = (IntroTask_t*) &mazeTask;
+
+		xTaskCreate(ApplicationRunTaskFn, "MazeTask", configMINIMAL_STACK_SIZE, mazeRawTask, tskIDLE_PRIORITY, mazeRawTask->taskHandle);
+
 }
 
 
